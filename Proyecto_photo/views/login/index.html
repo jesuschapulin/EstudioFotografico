@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../resources/css/toastr.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="../../assets/jquery.js"></script>
+    <script src="particles.js"></script>
+    <script type="text/javascript" src="../../assets/bootstrap/js/bootstrap.js" ></script>
+    <script src="../../resources/js/toastr.min.js"></script>
+    <script src="../../resources/js/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#aceptar").click(function(event){
+
+                var user=$("#form #user").val();
+                var password=$("#form #password").val();
+
+                if (user!='') 
+                {
+                    if (password!='') 
+                    {
+                        $.post('../../app/controllers/usuarios_controller.php',{user:user,password:password,action:"sesion"},function(request){
+                        $("#cont_request").html(request);
+                    });
+                    }
+                    else{
+                      toastr["error"]("Porvafor llena el campo de contraseña", "¡Error!");  
+                    } 
+                }
+                else
+                {
+                    toastr["error"]("Porvafor llena el campo de usuario", "¡Error!");
+                }
+            });
+        });
+    </script>    
+</head>
+<body>
+<div style="display:none" id="cont_request"></div> 
+<div class="container">    
+        
+    <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3"> 
+        
+        <div class="row center">                
+            <div class="iconmelon">
+                  <img src="../../images/logo1.png" class="" />
+            </div>
+        </div>
+        
+        <div class="panel panel-default" >
+            <div class="panel-heading">
+                <div class="panel-title text-center">Iniciar sesión</div>
+            </div>     
+
+            <div class="panel-body" >
+
+                <form name="form" id="form" class="form-horizontal" data-toggle="validator">
+                   
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="user" type="text" class="form-control" name="user" value="" placeholder="Usuario" required>                                        
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input id="password" type="password" class="form-control" name="password" placeholder="Contraseña" required>
+                    </div>                                                                  
+
+                    <div class="form-group">
+                        <!-- Button -->
+                        <div class="col-sm-12 controls">
+                            <a id="aceptar" href="#" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-log-in"></i> Entrar</a>                          
+                        </div>
+                    </div>
+
+                </form>      
+
+            </div>                     
+        </div>  
+    </div>
+</div>
+
+<div id="particles"></div>
+
+</body>
+</html>
